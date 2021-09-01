@@ -5,12 +5,17 @@ class Counter extends Component {
     super(props);
 
     this.state = {
-      count: 3
+      count: 0
     }
 
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
     this.reset = this.reset.bind(this)
+    this.updateDocumentTitle = this.updateDocumentTitle.bind(this)
+  }
+
+  updateDocumentTitle() {
+    document.title = `Count: ${this.state.count}`
   }
 
   increment() {
@@ -19,18 +24,16 @@ class Counter extends Component {
       if(state.count >= max) return;
       return { count: state.count + step};
     }, () => {
-      console.log("AFTER", this.state)
+      document.title = `Count: ${this.state.count}`
     });
-
-      console.log("BEFORE", this.state)
   }
 
   decrement() {
-    this.setState({ count: this.state.count - 1 });
+    this.setState({ count: this.state.count - 1 }, this.updateDocumentTitle);
   }
 
   reset() {
-    this.setState({ count: 0 });
+    this.setState({ count: 0 }, this.updateDocumentTitle);
   }
 
 
