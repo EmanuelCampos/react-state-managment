@@ -14,10 +14,15 @@ class Counter extends Component {
   }
 
   increment() {
-    this.setState(state => {
-      if(state.count >= 5) return;
-      return { count: state.count + 1};
+    this.setState((state, props) => {
+      const { max, step } = props
+      if(state.count >= max) return;
+      return { count: state.count + step};
+    }, () => {
+      console.log("AFTER", this.state)
     });
+
+      console.log("BEFORE", this.state)
   }
 
   decrement() {
